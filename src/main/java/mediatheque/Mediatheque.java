@@ -13,8 +13,8 @@ public class Mediatheque {
 		mediatheque.addItem( new Book("J.R.R. Tolkien", "Le seigneur des anneaux"));
 		mediatheque.addItem( new Book("Philip K. Dick", "Le Maître du haut chateau"));
 		mediatheque.addItem( new CD(12, "Sergeant Peppers"));
-		mediatheque.printCatalog();
-		//mediatheque.printOnlyBooks();
+		//mediatheque.printCatalog();
+		mediatheque.printOnlyBooks();
 		//mediatheque.printOnlyCDs();		
 	}
 	
@@ -28,17 +28,21 @@ public class Mediatheque {
 	}
 	
 	public void printOnlyBooks() {
-		throw new UnsupportedOperationException("Not supported yet."); 
-		/*
-		//avec instanceof
-		for (Item i : items)
-			if (i instanceof Book)
-				System.out.println(i);
-		*/
+		
+		ItemVisitor v = new BookPrinter();
+		for (Item i : items){
+			i.accept(v);
+		}
+		
 	}
 
 	public void printOnlyCDs() {
-		throw new UnsupportedOperationException("Not supported yet."); 
+		ItemVisitor v = new CDPrinter();
+		for (Item i : items){
+			i.accept(v);
+		}
 	}
+
+	
 
 }
